@@ -2,6 +2,7 @@
 /build
 /cache
 /images
+/files
 
 .env
 .env.local
