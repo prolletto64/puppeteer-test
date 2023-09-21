@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "simple puppeteer project for learning purposes",
   "main": "src/index.ts",
-  "repository": "github.com",
+  "repository": "https://github.com/prolletto64/puppeteer-test",
   "author": "prolletto64 <poiluonzo@mail.com>",
   "license": "MIT",
   "scripts": {
