@@ -16,12 +16,13 @@ async function getCategory(category?: string, filtered?: boolean) {
 
   let page = (await browser.pages())[0];
   await page.goto(category, { waitUntil: "domcontentloaded" });
-  const productsEl = await page.$$(".s-item__wrapper.clearfix");
   let products = [];
   let should = true;
   let i = 1;
+  let next;
   while (should) {
     console.log(i);
+    const productsEl = await page.$$(".s-item__wrapper.clearfix");
     await Promise.all(
       productsEl.map(async (p) => {
         let name = await p.$eval(".s-item__title ", (el) =>
@@ -37,11 +38,12 @@ async function getCategory(category?: string, filtered?: boolean) {
       })
     );
     i++;
-    should = (await page.$(".pagination__next")) !== null;
+    next = await page.$(".pagination__next");
+    should = next !== null;
     if (should)
       await Promise.all([
         page.waitForNavigation({ waitUntil: "domcontentloaded" }),
-        page.click(".pagination__next"),
+        next?.click(),
       ]);
   }
 }
