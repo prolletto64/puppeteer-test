@@ -1,0 +1,23 @@
+{
+  "name": "puppeteer-test",
+  "version": "1.0.0",
+  "description": "simple puppeteer project for learning purposes",
+  "main": "src/index.ts",
+  "repository": "github.com",
+  "author": "prolletto64 <poiluonzo@mail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./build/index.js",
+    "build": "tsc",
+    "dev": "ts-node ./src/index.ts",
+    "full": "tsc && node ./build/index.js",
+    "test": "ts-node ./src/test.ts"
+  },
+  "dependencies": {
+    "@types/node": "^20.5.7",
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1"
+  }
+}
