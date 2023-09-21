@@ -18,24 +18,32 @@ async function getCategory(category?: string, filtered?: boolean) {
   await page.goto(category, { waitUntil: "domcontentloaded" });
   const productsEl = await page.$$(".s-item__wrapper.clearfix");
   let products = [];
-  /*   let should = true;
+  let should = true;
   let i = 1;
   while (should) {
-    console.log(i); */
-  await Promise.all(
-    productsEl.map(async (p) => {
-      let name = await p.$eval(".s-item__title ", (el) => el.innerText.trim());
-      let price = await p.$eval(".s-item__price", (el) => el.innerText.trim());
-      let image = await p.$eval(".s-item__image-img", (el) =>
-        el.getAttribute("src")
-      );
-      products.push({ name, price, image });
-    })
-  );
-  /* i++;
-    should = (await page.$(".pagination__next")) != null;
-    if (should) (await page.$(".pagination__next"))!.click();
-  } */
+    console.log(i);
+    await Promise.all(
+      productsEl.map(async (p) => {
+        let name = await p.$eval(".s-item__title ", (el) =>
+          el.innerText.trim()
+        );
+        let price = await p.$eval(".s-item__price", (el) =>
+          el.innerText.trim()
+        );
+        let image = await p.$eval(".s-item__image-img", (el) =>
+          el.getAttribute("src")
+        );
+        products.push({ name, price, image });
+      })
+    );
+    i++;
+    should = (await page.$(".pagination__next")) !== null;
+    if (should)
+      await Promise.all([
+        page.waitForNavigation({ waitUntil: "domcontentloaded" }),
+        page.click(".pagination__next"),
+      ]);
+  }
 }
 
 getCategory(undefined, true);
