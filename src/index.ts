@@ -16,7 +16,7 @@ async function getCategory(category?: string, filtered?: boolean) {
   if (filtered) category += "?rt=nc&LH_ItemCondition=1000&mag=1";
 
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: "new",
     userDataDir: path.join(process.cwd(), "cache"),
   });
 
@@ -40,6 +40,8 @@ async function getCategory(category?: string, filtered?: boolean) {
         let image = await p.$eval(".s-item__image-img", (el) =>
           el.getAttribute("src")
         );
+        image =
+          image == "https://ir.ebaystatic.com/cr/v/c1/s_1x2.gif" ? "" : image;
         products.push({ name, price, image });
       })
     );
@@ -55,6 +57,7 @@ async function getCategory(category?: string, filtered?: boolean) {
         next?.click(),
       ]);
   }
+  browser.close();
 }
 
 getCategory(undefined, true);
